@@ -1,5 +1,5 @@
 #sqlite build sample
-import sqlite3
+import sqlite3, os
 
 conn = sqlite3.connect('example.db')
 
@@ -17,3 +17,5 @@ print c.fetchone()
 
 conn.commit()
 conn.close()
+
+os.system('rm example.db')
