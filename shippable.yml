@@ -3,4 +3,4 @@ python:
 language: python
 install: pip install --use-mirrors -r requirements.txt
 script:
-	- python sqliteSample.py
+  - python sqliteSample.py
