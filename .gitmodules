@@ -1,0 +1,3 @@
+[submodule "sample_node_sqlite"]
+	path = sample_node_sqlite
+	url = git@github.com:vidyar/sample_node_sqlite.git
