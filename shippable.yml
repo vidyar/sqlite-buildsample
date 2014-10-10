@@ -8,4 +8,4 @@ script:
   - python sqliteSample.py
 git:
  submodule: false
-cache: true
+#cache: true
