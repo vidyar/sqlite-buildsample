@@ -1,6 +1,6 @@
 python:
   - "2.7"
-  - "2.6"
+  #- "2.6"
 language: python
 
 
@@ -11,6 +11,7 @@ install:
 
 script:
   - python sqliteSample.py
+  - cat text.txt
 git:
  submodule: false
-cache: true
+#cache: true
