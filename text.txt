@@ -1,3 +1,288 @@
+page_title: About Docker
+page_description: Introduction to Docker.
+page_keywords: docker, introduction, documentation, about, technology, understanding, Dockerfile
+
+# About Docker
+
+**Develop, Ship and Run Any Application, Anywhere**
+
+[**Docker**](https://www.docker.com) is a platform for developers and sysadmins
+to develop, ship, and run applications.  Docker lets you quickly assemble
+applications from components and eliminates the friction that can come when
+shipping code. Docker lets you get your code tested and deployed into production
+as fast as possible.
+
+Docker consists of:
+
+* The Docker Engine - our lightweight and powerful open source container
+  virtualization technology combined with a work flow for building
+  and containerizing your applications.
+* [Docker Hub](https://hub.docker.com) - our SaaS service for
+  sharing and managing your application stacks.
+
+## Why Docker?
+
+*Faster delivery of your applications*
+
+* We want your environment to work better. Docker containers,
+      and the work flow that comes with them, help your developers,
+      sysadmins, QA folks, and release engineers work together to get your code
+      into production and make it useful. We've created a standard
+      container format that lets developers care about their applications
+      inside containers while sysadmins and operators can work on running the
+      container in your deployment. This separation of duties streamlines and
+      simplifies the management and deployment of code.
+* We make it easy to build new containers, enable rapid iteration of
+      your applications, and increase the visibility of changes. This
+      helps everyone in your organization understand how an application works
+      and how it is built.
+* Docker containers are lightweight and fast! Containers have
+      sub-second launch times, reducing the cycle
+      time of development, testing, and deployment.
+
+*Deploy and scale more easily*
+
+* Docker containers run (almost) everywhere. You can deploy
+      containers on desktops, physical servers, virtual machines, into
+      data centers, and up to public and private clouds.
+* Since Docker runs on so many platforms, it's easy to move your
+      applications around. You can easily move an application from a
+      testing environment into the cloud and back whenever you need.
+* Docker's lightweight containers also make scaling up and
+      down fast and easy. You can quickly launch more containers when
+      needed and then shut them down easily when they're no longer needed.
+
+*Get higher density and run more workloads*
+
+* Docker containers don't need a hypervisor, so you can pack more of
+      them onto your hosts. This means you get more value out of every
+      server and can potentially reduce what you spend on equipment and
+      licenses.
+
+*Faster deployment makes for easier management*
+
+* As Docker speeds up your work flow, it gets easier to make lots
+      of small changes instead of huge, big bang updates. Smaller
+      changes mean reduced risk and more uptime.
+
+## About this guide
+
+The [Understanding Docker section](introduction/understanding-docker.md) will help you:
+
+ - See how Docker works at a high level
+ - Understand the architecture of Docker
+ - Discover Docker's features;
+ - See how Docker compares to virtual machines
+ - See some common use cases.
+
+### Installation Guides
+
+The [installation section](/installation/#installation) will show you how to install
+Docker on a variety of platforms.
+
+
+### Docker User Guide
+
+To learn about Docker in more detail and to answer questions about usage and
+implementation, check out the [Docker User Guide](/userguide/).
+
+## Release Notes
+
+**Version 1.3.0**
+
+This version fixes a number of bugs and issues and adds new functions and other
+improvements. These include:
+
+*New command: `docker exec`*
+
+The new `docker exec` command lets you run a process in an existing, active
+container. The command has APIs for both the daemon and the client. With
+`docker exec`, you'll be able to do things like add or remove devices from running containers, debug running containers, and run commands that are not
+part of the container's static specification.
+
+*New command: `docker create`*
+
+Traditionally, the `docker run` command has been used to both create a
+container and spawn a process to run it. The new `docker create` command breaks
+this apart, letting you set up a container without actually starting it. This
+provides more control over management of the container lifecycle, giving you the
+ability to configure things like volumes or port mappings before the container
+is started. For example, in a rapid-response scaling situation, you could use
+`create` to prepare and stage ten containers in anticipation of heavy loads.
+
+*New provenance features*
+
+Official images are now signed by Docker, Inc. to improve your confidence and
+security. Look for the blue ribbons on the [Docker Hub](https://hub.docker.com/).
+The Docker Engine has been updated to automatically verify that a given Official
+Repo has a current, valid signature. If no valid signature is detected, Docker
+Engine will use a prior image.
+
+
+*Other improvements & changes*
+
+We've added a new security options flag that lets you set SELinux and AppArmor
+labels and profiles. This means you'll longer have to use `docker run
+--privileged on kernels that support SE Linux or AppArmor.
+page_title: Installation on Amazon EC2
+page_description: Installation instructions for Docker on Amazon EC2.
+page_keywords: amazon ec2, virtualization, cloud, docker, documentation, installation
+
+# Amazon EC2
+
+There are several ways to install Docker on AWS EC2:
+
+ - [*Amazon QuickStart (Release Candidate - March 2014)*](
+    #amazon-quickstart-release-candidate-march-2014) or
+ - [*Amazon QuickStart*](#amazon-quickstart) or
+ - [*Standard Ubuntu Installation*](#standard-ubuntu-installation)
+
+**You'll need an** [AWS account](http://aws.amazon.com/) **first, of
+course.**
+
+## Amazon QuickStart
+
+1. **Choose an image:**
+   - Launch the [Create Instance
+     Wizard](https://console.aws.amazon.com/ec2/v2/home?#LaunchInstanceWizard:)
+     menu on your AWS Console.
+   - Click the `Select` button for a 64Bit Ubuntu
+     image. For example: Ubuntu Server 12.04.3 LTS
+   - For testing you can use the default (possibly free)
+     `t1.micro` instance (more info on
+     [pricing](http://aws.amazon.com/ec2/pricing/)).
+   - Click the `Next: Configure Instance Details`
+     button at the bottom right.
+
+2. **Tell CloudInit to install Docker:**
+   - When you're on the "Configure Instance Details" step, expand the
+     "Advanced Details" section.
+   - Under "User data", select "As text".
+   - Enter `#include https://get.docker.com` into
+     the instance *User Data*.
+     [CloudInit](https://help.ubuntu.com/community/CloudInit) is part
+     of the Ubuntu image you chose; it will bootstrap Docker by
+     running the shell script located at this URL.
+
+3. After a few more standard choices where defaults are probably ok,
+   your AWS Ubuntu instance with Docker should be running!
+
+**If this is your first AWS instance, you may need to set up your
+Security Group to allow SSH.** By default all incoming ports to your new
+instance will be blocked by the AWS Security Group, so you might just
+get timeouts when you try to connect.
+
+Installing with `get.docker.com` (as above) will
+create a service named `lxc-docker`. It will also
+set up a [*docker group*](../binaries/#dockergroup) and you may want to
+add the *ubuntu* user to it so that you don't have to use
+`sudo` for every Docker command.
+
+Once you`ve got Docker installed, you're ready to try it out – head on
+over to the [User Guide](/userguide).
+
+## Amazon QuickStart (Release Candidate - March 2014)
+
+Amazon just published new Docker-ready AMIs (2014.03 Release Candidate).
+Docker packages can now be installed from Amazon's provided Software
+Repository.
+
+1. **Choose an image:**
+   - Launch the [Create Instance
+     Wizard](https://console.aws.amazon.com/ec2/v2/home?#LaunchInstanceWizard:)
+     menu on your AWS Console.
+   - Click the `Community AMI` menu option on the
+     left side
+   - Search for `2014.03` and select one of the Amazon provided AMI,
+     for example `amzn-ami-pv-2014.03.rc-0.x86_64-ebs`
+   - For testing you can use the default (possibly free)
+     `t1.micro` instance (more info on
+     [pricing](http://aws.amazon.com/ec2/pricing/)).
+   - Click the `Next: Configure Instance Details`
+      button at the bottom right.
+
+2. After a few more standard choices where defaults are probably ok,
+   your Amazon Linux instance should be running!
+3. SSH to your instance to install Docker :
+   `ssh -i <path to your private key> ec2-user@<your public IP address>`
+
+4. Once connected to the instance, type
+    `sudo yum install -y docker ; sudo service docker start`
+ to install and start Docker
+
+## Standard Ubuntu Installation
+
+If you want a more hands-on installation, then you can follow the
+[*Ubuntu*](../ubuntulinux/#ubuntu-linux) instructions installing Docker
+on any EC2 instance running Ubuntu. Just follow Step 1 from [*Amazon
+QuickStart*](#amazon-quickstart) to pick an image (or use one of your
+own) and skip the step with the *User Data*. Then continue with the
+[*Ubuntu*](../ubuntulinux/#ubuntu-linux) instructions.
+
+Continue with the [User Guide](/userguide/).
+page_title: Installation on CRUX Linux
+page_description: Docker installation on CRUX Linux.
+page_keywords: crux linux, virtualization, Docker, documentation, installation
+
+# CRUX Linux
+
+Installing on CRUX Linux can be handled via the ports from [James
+Mills](http://prologic.shortcircuit.net.au/) and are included in the
+official [contrib](http://crux.nu/portdb/?a=repo&q=contrib) ports:
+
+- docker
+- docker-bin
+
+The `docker` port will install the latest tagged
+version of Docker. The `docker-bin` port will
+install the latest tagged version of Docker from upstream built binaries.
+
+## Installation
+
+Assuming you have contrib enabled, update your ports tree and install docker (*as root*):
+
+    # prt-get depinst docker
+
+You can install `docker-bin` instead if you wish to avoid compilation time.
+
+
+## Kernel Requirements
+
+To have a working **CRUX+Docker** Host you must ensure your Kernel has
+the necessary modules enabled for LXC containers to function correctly
+and Docker Daemon to work properly.
+
+Please read the `README`:
+
+    $ prt-get readme docker
+
+The `docker` and `docker-bin` ports install the `contrib/check-config.sh`
+script provided by the Docker contributors for checking your kernel
+configuration as a suitable Docker Host.
+
+    $ /usr/share/docker/check-config.sh
+
+## Starting Docker
+
+There is a rc script created for Docker. To start the Docker service (*as root*):
+
+    # /etc/rc.d/docker start
+
+To start on system boot:
+
+ - Edit `/etc/rc.conf`
+ - Put `docker` into the `SERVICES=(...)` array after `net`.
+
+## Issues
+
+If you have any issues please file a bug with the
+[CRUX Bug Tracker](http://crux.nu/bugs/).
+
+## Support
+
+For support contact the [CRUX Mailing List](http://crux.nu/Main/MailingLists)
+or join CRUX's [IRC Channels](http://crux.nu/Main/IrcChannels). on the
+[FreeNode](http://freenode.net/) IRC Network.
 :title: Learn About What Makes Shippable Great
 :description: Code examples, FAQs, language & platform support
 :keywords: containers, lxc, docker, Continuous Integration, Continuous Deployment, CI/CD, testing, automation
