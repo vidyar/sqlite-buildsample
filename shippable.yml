@@ -1,7 +1,7 @@
 python:
   - "2.7"
   #- "2.6"
-language: dart
+language: python
 
 build_image: shippable/minv2
 
