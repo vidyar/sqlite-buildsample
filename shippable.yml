@@ -10,7 +10,7 @@ install:
 
 script:
   - python sqliteSample.py
-  - cat text.txt
+#  - cat text.txt
 git:
  submodule: false
 cache: true
