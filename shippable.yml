@@ -13,4 +13,4 @@ script:
   - cat text.txt
 git:
  submodule: false
-#cache: true
+cache: true
