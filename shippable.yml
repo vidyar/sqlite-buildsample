@@ -14,3 +14,4 @@ script:
 git:
  submodule: false
 cache: true
+commit_container: vidyar/sqlite
